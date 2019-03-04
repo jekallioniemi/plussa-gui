@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { EditorComponent } from './editor.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [EditorComponent],
   imports: [
     CommonModule
   ]

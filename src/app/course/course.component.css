@@ -1,0 +1,18 @@
+input.credentials {
+  width: 100px;
+}
+
+input.url {
+  width: 200px;
+}
+
+.fileListing {
+  font-size: 12px;
+  font-family: sans-serif;
+  width: 500px;
+  height: 250px;
+  margin-top: 10px;
+  padding: 10px;
+  overflow: scroll;
+  border: 1px solid lightgray;
+}
