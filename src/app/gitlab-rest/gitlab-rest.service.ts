@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class GitlabRestService {
 
   private projectsApiUrl = "https://gitlab.com/api/v4/projects/";
-  private fileTreeExtensionUrl = "/repository/tree?recursive=true";
+  private fileTreeExtensionUrl = "/repository/tree";
   private httpHeaders: HttpHeaders;
 
   constructor(private http: HttpClient) { }

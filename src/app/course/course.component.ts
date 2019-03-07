@@ -12,15 +12,11 @@ export class CourseComponent implements OnInit {
     accessToken: "zhTide4FLViFeUXgZf_D",
     projectId: "11077015"
   }
-  private fileTree = {};
+
+  private files: any;
   private courseName = "Course files";
   private fileListing = "File listing...";
-  public list = [
-    {
-      title: 'childless',
-      children: []
-    }
-  ]
+
 
   constructor(private gitlabRestService: GitlabRestService) { }
 
@@ -31,16 +27,15 @@ export class CourseComponent implements OnInit {
     .subscribe((response) => {
       this.showCourseFiles(response);
       console.log(response);
+      this.files = response;
     });
   }
 
   downloadFile(fileId) {
 
   }
-
+// add ?recursive=true to the rest service call for recursive file listing
   showCourseFiles(fileTreeJSON) {
-    // TODO: generate UL-list structure from fileTreeJSON.
-    this.fileTree = fileTreeJSON;
     this.fileListing = JSON.stringify(fileTreeJSON);
   }
 }
