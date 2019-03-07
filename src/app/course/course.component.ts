@@ -15,6 +15,12 @@ export class CourseComponent implements OnInit {
   private fileTree = {};
   private courseName = "Course files";
   private fileListing = "File listing...";
+  public list = [
+    {
+      title: 'childless',
+      children: []
+    }
+  ]
 
   constructor(private gitlabRestService: GitlabRestService) { }
 
