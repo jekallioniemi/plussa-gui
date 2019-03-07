@@ -3,6 +3,20 @@
   Token: <input class="credentials" type="text" [(ngModel)]="credentials.accessToken" placeholder="Access Token" />
   Project Id: <input class="credentials" type="text" [(ngModel)]="credentials.projectId" placeholder="Project Id" />
   <button (click)="downloadCourse()">Download Course</button>
-  <div class="fileListing">{{fileListing}}</div>
+  <div class="fileListing">
+    <ul class="fileInfoRow" *ngFor="let file of fileListing">
+      <li class="fileName">
+        {{ file.name }}
+      </li>
+      <li>
+        {{ file.type }}
+      </li>
+      <li>
+        <button (click)="downloadFile(file)">Edit</button>
+      </li>
+    </ul>
+  </div>
   <button (click)="saveToRepo">Save Course</button>
 </div>
+<app-editor></app-editor>
+<button (click)="saveEdits()">Save edits</button>

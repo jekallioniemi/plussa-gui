@@ -21,7 +21,7 @@ import { CourseComponent } from './course/course.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [GitlabRestService],
+  providers: [GitlabRestService, EditorComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

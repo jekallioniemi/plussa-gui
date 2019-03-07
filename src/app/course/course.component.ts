@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GitlabRestService } from '../gitlab-rest/gitlab-rest.service';
+import { EditorComponent } from '../editor/editor.component';
 
 @Component({
   selector: 'app-course',
@@ -8,13 +9,16 @@ import { GitlabRestService } from '../gitlab-rest/gitlab-rest.service';
 })
 export class CourseComponent implements OnInit {
 
+  @ViewChild(EditorComponent)
+  private editor: EditorComponent;
   private credentials = {
     accessToken: "zhTide4FLViFeUXgZf_D",
     projectId: "11077015"
   }
-  private fileTree = {};
+  private editedFileJSON: {};
+  private fileTree = [];
   private courseName = "Course files";
-  private fileListing = "File listing...";
+  private fileListing = [];
 
   constructor(private gitlabRestService: GitlabRestService) { }
 
@@ -28,13 +32,28 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  downloadFile(fileId) {
-
+  downloadFile(fileMetaJSON) {
+    this.gitlabRestService.getRepositoryFile(this.credentials.accessToken, this.credentials.projectId, fileMetaJSON)
+    .subscribe((response) => {
+      this.editor.setText(this.gitlabRestService.getFileDataFromJSON(response));
+      console.log(response);
+    });
+    this.editedFileJSON = fileMetaJSON;
   }
 
   showCourseFiles(fileTreeJSON) {
     // TODO: generate UL-list structure from fileTreeJSON.
     this.fileTree = fileTreeJSON;
-    this.fileListing = JSON.stringify(fileTreeJSON);
+    this.fileListing = fileTreeJSON;
+  }
+
+  // Prototype does a straight commit. This should just save the edited content into a data structure.
+  saveEdits() {
+    this.gitlabRestService.postRepositoryCommit(
+      this.credentials.accessToken, this.credentials.projectId,
+      this.fileTree, this.editedFileJSON, this.editor.getText())
+    .subscribe((response) => {
+      console.log(response);
+    });
   }
 }

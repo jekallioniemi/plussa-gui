@@ -16,3 +16,19 @@ input.url {
   overflow: scroll;
   border: 1px solid lightgray;
 }
+
+.fileInfoRow {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  clear: left;
+}
+
+.fileInfoRow li {
+  float: left;
+  padding: 10px;
+}
+
+.fileInfoRow li.fileName {
+  width: 140px;
+}
