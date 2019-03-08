@@ -20,6 +20,7 @@ export class CourseComponent implements OnInit {
   private courseName = "Course files";
   private fileListing = [];
 
+
   constructor(private gitlabRestService: GitlabRestService) { }
 
   ngOnInit() { }
@@ -40,14 +41,14 @@ export class CourseComponent implements OnInit {
     });
     this.editedFileJSON = fileMetaJSON;
   }
-
+// add ?recursive=true to the rest service call for recursive file listing
   showCourseFiles(fileTreeJSON) {
     // TODO: generate UL-list structure from fileTreeJSON.
     this.fileTree = fileTreeJSON;
     this.fileListing = fileTreeJSON;
   }
 
-  // Prototype does a straight commit. This should just save the edited content into a data structure.
+  // Demo does a straight commit. This should just save the edited content into a data structure.
   saveEdits() {
     this.gitlabRestService.postRepositoryCommit(
       this.credentials.accessToken, this.credentials.projectId,
