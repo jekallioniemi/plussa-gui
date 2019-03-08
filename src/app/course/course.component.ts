@@ -31,7 +31,6 @@ export class CourseComponent implements OnInit {
     .subscribe((response) => {
       this.showCourseFiles(response);
       console.log(response);
-      this.files = response;
     });
   }
 
