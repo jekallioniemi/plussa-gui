@@ -21,6 +21,7 @@ export class CourseComponent implements OnInit {
   private fileListing = [];
 
 
+
   constructor(private gitlabRestService: GitlabRestService) { }
 
   ngOnInit() { }
@@ -30,6 +31,7 @@ export class CourseComponent implements OnInit {
     .subscribe((response) => {
       this.showCourseFiles(response);
       console.log(response);
+      this.files = response;
     });
   }
 
