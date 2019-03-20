@@ -19,6 +19,7 @@ export class CourseComponent implements OnInit {
   private fileTree = [];
   private courseName = "Course files";
   private fileListing = [];
+  private path = "";
 
 
 
@@ -33,14 +34,28 @@ export class CourseComponent implements OnInit {
       console.log(response);
     });
   }
-
-  downloadFile(fileMetaJSON) {
-    this.gitlabRestService.getRepositoryFile(this.credentials.accessToken, this.credentials.projectId, fileMetaJSON)
+  openFolder(fileMetaJSON) {
+    this.gitlabRestService.getRepositoryTree2(this.credentials.accessToken, this.credentials.projectId, fileMetaJSON)
     .subscribe((response) => {
-      this.editor.setText(this.gitlabRestService.getFileDataFromJSON(response));
+      this.showCourseFiles(response);
       console.log(response);
     });
-    this.editedFileJSON = fileMetaJSON;
+  }
+
+  downloadFile(fileMetaJSON) {
+    if(fileMetaJSON.type=="tree"){
+      this.path = fileMetaJSON.path;
+      console.log(this.path);
+      this.openFolder(fileMetaJSON);
+    }
+    else {
+      this.gitlabRestService.getRepositoryFile(this.credentials.accessToken, this.credentials.projectId, fileMetaJSON)
+      .subscribe((response) => {
+        this.editor.setText(this.gitlabRestService.getFileDataFromJSON(response));
+        console.log(response);
+      });
+      this.editedFileJSON = fileMetaJSON;
+    }
   }
 // add ?recursive=true to the rest service call for recursive file listing
   showCourseFiles(fileTreeJSON) {
