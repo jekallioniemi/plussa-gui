@@ -23,17 +23,20 @@ export class GitlabRestService {
   getRepositoryTree(token, projectId) {
     const headers = new HttpHeaders().set("PRIVATE-TOKEN", token);
     return this.http.get(this.projectsApiUrl + projectId + this.fileTreeExtensionUrl, {headers});
-
   }
   getRepositoryTree2(token, projectId, fileMetaJSON) {
     const headers = new HttpHeaders().set("PRIVATE-TOKEN", token);
     return this.http.get(this.projectsApiUrl + projectId + this.fileTreeExtensionUrl + "?path=" + fileMetaJSON.path, {headers});
+  }
 
+  // change '/' to '%2F' for REST calls 
+  replaceSlash(s:string) {
+    return s && s.replace(/\//g,'%2F');
   }
 
   getRepositoryFile(token, projectId, fileMetaJSON) {
     const headers = new HttpHeaders().set("PRIVATE-TOKEN", token);
-    return this.http.get(this.projectsApiUrl + projectId + this.filesExtensionUrl + "/" + fileMetaJSON.path + "?ref=master", {headers});
+    return this.http.get(this.projectsApiUrl + projectId + this.filesExtensionUrl + "/" + this.replaceSlash(fileMetaJSON.path) + "?ref=master", {headers});
   }
 
   getFileDataFromJSON(fileJSON) {

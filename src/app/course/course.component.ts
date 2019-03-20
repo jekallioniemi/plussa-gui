@@ -34,6 +34,7 @@ export class CourseComponent implements OnInit {
       console.log(response);
     });
   }
+  
   openFolder(fileMetaJSON) {
     this.gitlabRestService.getRepositoryTree2(this.credentials.accessToken, this.credentials.projectId, fileMetaJSON)
     .subscribe((response) => {
@@ -43,9 +44,8 @@ export class CourseComponent implements OnInit {
   }
 
   downloadFile(fileMetaJSON) {
-    if(fileMetaJSON.type=="tree"){
-      this.path = fileMetaJSON.path;
-      console.log(this.path);
+    // if file is folder openFolder else openFile to editor
+    if(fileMetaJSON.type == "tree"){
       this.openFolder(fileMetaJSON);
     }
     else {
