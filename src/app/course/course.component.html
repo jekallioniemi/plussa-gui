@@ -1,22 +1,19 @@
-<div class="coursePanel">
-  <h3>{{courseName}}</h3>
-  Token: <input class="credentials" type="text" [(ngModel)]="credentials.accessToken" placeholder="Access Token" />
-  Project Id: <input class="credentials" type="text" [(ngModel)]="credentials.projectId" placeholder="Project Id" />
-  <button (click)="downloadCourse()">Download Course</button>
-  <div class="fileListing">
-    <ul class="fileInfoRow" *ngFor="let file of fileListing">
-      <li class="fileName">
-        {{ file.name }}
-      </li>
-      <li>
-        {{ file.type }}
-      </li>
-      <li>
-        <button (click)="downloadFile(file)">Edit</button>
-      </li>
-    </ul>
+<div  class="row">
+  <div class="col-2">
+  <h3>User credentials</h3>
+    Token: <input class="credentials" type="text" [(ngModel)]="credentials.accessToken" placeholder="Access Token" />
+    Project Id: <input class="credentials" type="text" [(ngModel)]="credentials.projectId" placeholder="Project Id" />
+    <button type="button" class="btn btn-primary" (click)="downloadCourse()">Download</button>
+    <h4 style="margin-top:15px;">Course files</h4>
+    <tree-root [nodes]="fileTree" (activate)="onEvent($event)" [options]="options"></tree-root>
   </div>
-  <button (click)="saveToRepo">Save Course</button>
+  <div class="col-5">
+    <app-editor></app-editor>
+    <button type="button" class="btn btn-primary" (click)="saveEdits()">Save edits</button>
+  </div>
+  <div class="col-5">
+    <h3>Test preview</h3>
+    <textarea class="editor">...</textarea>
+    <button type="button" class="btn btn-primary">Empty</button>
+  </div>
 </div>
-<app-editor></app-editor>
-<button (click)="saveEdits()">Save edits</button>
