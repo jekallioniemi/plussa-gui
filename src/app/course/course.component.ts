@@ -15,6 +15,10 @@ export class CourseComponent implements OnInit {
     accessToken: "zhTide4FLViFeUXgZf_D",
     projectId: "11077015"
   }
+  // Repository: https://course-gitlab.tut.fi/pervasive_computing/plusgui-test
+  // ID: 5012
+  // token: zfPH8_Npjw419qkqgCu5
+
   private editedFileJSON: {};
   private fileTree = [];
   private courseName = "Course files";
@@ -34,9 +38,9 @@ export class CourseComponent implements OnInit {
       console.log(response);
     });
   }
-  
+
   openFolder(fileMetaJSON) {
-    this.gitlabRestService.getRepositoryTree2(this.credentials.accessToken, this.credentials.projectId, fileMetaJSON)
+    this.gitlabRestService.getRepositoryTree(this.credentials.accessToken, this.credentials.projectId, fileMetaJSON)
     .subscribe((response) => {
       this.showCourseFiles(response);
       console.log(response);

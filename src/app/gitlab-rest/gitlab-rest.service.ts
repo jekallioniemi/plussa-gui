@@ -8,11 +8,14 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class GitlabRestService {
 
+  private httpHeaders: HttpHeaders;
+  // URLs for GitLab API
+  // course-gitlab.tut.fi projectsApiUrl: https://course-gitlab.tut.fi/api/v4/projects/
   private projectsApiUrl = "https://gitlab.com/api/v4/projects/";
   private filesExtensionUrl = "/repository/files"
   private fileTreeExtensionUrl = "/repository/tree";
   private commitExtensionUrl = "/repository/commits";
-  private httpHeaders: HttpHeaders;
+  
 
   constructor(private http: HttpClient) { }
 
@@ -20,13 +23,15 @@ export class GitlabRestService {
 
   }
 
-  getRepositoryTree(token, projectId) {
+  // Function to http.get repository filetree, ?per_page necessary when there is more than 20 files to show
+  getRepositoryTree(token, projectId, fileMetaJSON?) {
     const headers = new HttpHeaders().set("PRIVATE-TOKEN", token);
-    return this.http.get(this.projectsApiUrl + projectId + this.fileTreeExtensionUrl, {headers});
-  }
-  getRepositoryTree2(token, projectId, fileMetaJSON) {
-    const headers = new HttpHeaders().set("PRIVATE-TOKEN", token);
-    return this.http.get(this.projectsApiUrl + projectId + this.fileTreeExtensionUrl + "?path=" + fileMetaJSON.path, {headers});
+    if(fileMetaJSON == undefined){
+      return this.http.get(this.projectsApiUrl + projectId + this.fileTreeExtensionUrl + "?per_page=100", {headers});
+    }
+    else{
+      return this.http.get(this.projectsApiUrl + projectId + this.fileTreeExtensionUrl + "?path=" + fileMetaJSON.path, {headers});
+    }
   }
 
   // change '/' to '%2F' for REST calls 
