@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GitlabRestService } from '../gitlab-rest/gitlab-rest.service';
 import { EditorComponent } from '../editor/editor.component';
+import { TreeComponent } from 'angular-tree-component';
 
 @Component({
   selector: 'app-course',
@@ -10,6 +11,7 @@ import { EditorComponent } from '../editor/editor.component';
 export class CourseComponent implements OnInit {
 
   @ViewChild(EditorComponent)
+  @ViewChild('tree') tree: TreeComponent;
   private editor: EditorComponent;
   private credentials = {
     accessToken: "zhTide4FLViFeUXgZf_D",
@@ -27,9 +29,9 @@ export class CourseComponent implements OnInit {
 
   constructor(private gitlabRestService: GitlabRestService) { }
 
-  ngOnInit() {/*
+  ngOnInit() {
     var testJSON = [{"id":"7de5841695b4d2f5b3fe77fe90a08f27939b3d21","name":"e2e","type":"tree","path":"e2e","mode":"040000"},{"id":"0b91aec856671e1603bc0a5a5832046448d087cf","name":"src","type":"tree","path":"src","mode":"040000"},{"id":"e89330a618c137cdaccde46f87923736cc04dfb4","name":".editorconfig","type":"blob","path":".editorconfig","mode":"100644"},{"id":"f4f46a5feeb99832da5739425488cf171397a413","name":".gitignore","type":"blob","path":".gitignore","mode":"100644"},{"id":"f38139835caca98862b249d26deeacde060390fb","name":"README.md","type":"blob","path":"README.md","mode":"100644"},{"id":"b9fbd71c3639ac673ebb57836ace4aa7a7d636d2","name":"angular.json","type":"blob","path":"angular.json","mode":"100644"},{"id":"ca225b0f4ac8b54dd99a1682e1efea293a69e07d","name":"package-lock.json","type":"blob","path":"package-lock.json","mode":"100644"},{"id":"e0b2c3be41dcfdbc171fb18ae2a10cdc6d78bc55","name":"package.json","type":"blob","path":"package.json","mode":"100644"},{"id":"89fa1fe3389993410784230a8a65afa174ad933b","name":"testi.txt","type":"blob","path":"testi.txt","mode":"100644"},{"id":"b271fd9f3d55adf81bfd0da7d83de3eb88b7e191","name":"tsconfig.json","type":"blob","path":"tsconfig.json","mode":"100644"},{"id":"868ecba0db1b781aa74d9c7a5247a1cd567f4b0e","name":"tslint.json","type":"blob","path":"tslint.json","mode":"100644"}];
-    this.showCourseFiles(testJSON);*/
+    this.showCourseFiles(testJSON);
   }
 
   /*
@@ -37,16 +39,30 @@ export class CourseComponent implements OnInit {
    * $event.node.data holds the clicked file meta data JSON
    */
   onEvent = function($event) {
-    console.log($event.node.data);
     // blob types are files to be downloaded
-    if($event.node.data.type == 'blob') {
+    if($event.node.data.type == "blob") {
       this.downloadFile($event.node.data);
     }
     // tree types are folders to be opened when event name is "activate"
     else if($event.node.data.type == "tree" && $event.eventName == "activate"){
-      // Load folder contents only if they are not already loaded (check for an empty child node)
-      if($event.node.data.children[0].id == undefined) {
+      console.log($event.node.data.children[0]);
+      // Load folder contents only if they are not already loaded (check for a nameless child node)
+      if($event.node.data.children[0].name == undefined) {
         this.openFolder($event.node.data);
+      }
+    }
+  }
+
+  appendBranchToFileTree(parentId, travelJSON, branchJSON) {
+    let l = travelJSON.length;
+    for(let i = 0; i < l; ++i) {
+      if(travelJSON[i].type == 'tree') {
+        if(travelJSON[i].id == parentId) {
+          travelJSON[i].children = branchJSON;
+        }
+        else {
+          this.appendBranchToFileTree(parentId, travelJSON[i], branchJSON);
+        }
       }
     }
   }
@@ -65,7 +81,10 @@ export class CourseComponent implements OnInit {
     .subscribe((response) => {
       // TODO: Generate child nodes for the appropriate node in fileNodes structure
       // https://angular2-tree.readme.io/docs/
-      console.log(response);
+      this.appendBranchToFileTree(fileMetaJSON.id, this.fileTree, response);
+      console.log(JSON.stringify(response));
+      this.tree.treeModel.focusDrillDown();
+      this.tree.treeModel.update();
     });
   }
 
@@ -83,7 +102,7 @@ export class CourseComponent implements OnInit {
    */
   showCourseFiles(fileTreeJSON) {
     var l = fileTreeJSON.length;
-    // Add empty child nodes to tree types to have folder icons presented
+    // Add empty child node to tree types to have folder icons presented
     for(var i = 0; i < l; i++) {
       if(fileTreeJSON[i].type == "tree") {
         fileTreeJSON[i].children = [{}];

@@ -5,7 +5,7 @@
     Project Id: <input class="credentials" type="text" [(ngModel)]="credentials.projectId" placeholder="Project Id" />
     <button type="button" class="btn btn-primary" (click)="downloadCourse()">Download</button>
     <h4 style="margin-top:15px;">Course files</h4>
-    <tree-root [nodes]="fileTree" (activate)="onEvent($event)" [options]="options"></tree-root>
+    <tree-root #tree [nodes]="fileTree" (activate)="onEvent($event)" [options]="options"></tree-root>
   </div>
   <div class="col-5">
     <app-editor></app-editor>
