@@ -10,9 +10,9 @@ import { TreeComponent } from 'angular-tree-component';
 })
 export class CourseComponent implements OnInit {
 
-  @ViewChild(EditorComponent)
-  @ViewChild('tree') tree: TreeComponent;
-  private editor: EditorComponent;
+  @ViewChild(EditorComponent) editor: EditorComponent
+  @ViewChild('tree') tree: TreeComponent
+  //private editor: EditorComponent;
   private credentials = {
     accessToken: "zhTide4FLViFeUXgZf_D",
     projectId: "11077015"
@@ -29,9 +29,9 @@ export class CourseComponent implements OnInit {
 
   constructor(private gitlabRestService: GitlabRestService) { }
 
-  ngOnInit() {
+  ngOnInit() {/*
     var testJSON = [{"id":"7de5841695b4d2f5b3fe77fe90a08f27939b3d21","name":"e2e","type":"tree","path":"e2e","mode":"040000"},{"id":"0b91aec856671e1603bc0a5a5832046448d087cf","name":"src","type":"tree","path":"src","mode":"040000"},{"id":"e89330a618c137cdaccde46f87923736cc04dfb4","name":".editorconfig","type":"blob","path":".editorconfig","mode":"100644"},{"id":"f4f46a5feeb99832da5739425488cf171397a413","name":".gitignore","type":"blob","path":".gitignore","mode":"100644"},{"id":"f38139835caca98862b249d26deeacde060390fb","name":"README.md","type":"blob","path":"README.md","mode":"100644"},{"id":"b9fbd71c3639ac673ebb57836ace4aa7a7d636d2","name":"angular.json","type":"blob","path":"angular.json","mode":"100644"},{"id":"ca225b0f4ac8b54dd99a1682e1efea293a69e07d","name":"package-lock.json","type":"blob","path":"package-lock.json","mode":"100644"},{"id":"e0b2c3be41dcfdbc171fb18ae2a10cdc6d78bc55","name":"package.json","type":"blob","path":"package.json","mode":"100644"},{"id":"89fa1fe3389993410784230a8a65afa174ad933b","name":"testi.txt","type":"blob","path":"testi.txt","mode":"100644"},{"id":"b271fd9f3d55adf81bfd0da7d83de3eb88b7e191","name":"tsconfig.json","type":"blob","path":"tsconfig.json","mode":"100644"},{"id":"868ecba0db1b781aa74d9c7a5247a1cd567f4b0e","name":"tslint.json","type":"blob","path":"tslint.json","mode":"100644"}];
-    this.showCourseFiles(testJSON);
+    this.showCourseFiles(testJSON);*/
   }
 
   /*
