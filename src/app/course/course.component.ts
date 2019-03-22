@@ -26,6 +26,8 @@ export class CourseComponent implements OnInit {
   private origFileTreeJSON;
   private fileTree;
   private path = "";
+  private project: any;
+
 
   constructor(private gitlabRestService: GitlabRestService) { }
 
@@ -73,6 +75,11 @@ export class CourseComponent implements OnInit {
       this.showCourseFiles(response);
       this.origFileTreeJSON = response;
       console.log(response);
+    });
+
+    this.gitlabRestService.getProject(this.credentials.accessToken, this.credentials.projectId)
+    .subscribe((response) => {
+      this.project = response;
     });
   }
 

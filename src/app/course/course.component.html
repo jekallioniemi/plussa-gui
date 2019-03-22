@@ -4,6 +4,7 @@
     Token: <input class="credentials" type="text" [(ngModel)]="credentials.accessToken" placeholder="Access Token" />
     Project Id: <input class="credentials" type="text" [(ngModel)]="credentials.projectId" placeholder="Project Id" />
     <button type="button" class="btn btn-primary" (click)="downloadCourse()">Download</button>
+    <p style="margin-top:15px;">Repository: <br>{{project?.name}}</p>
     <h4 style="margin-top:15px;">Course files</h4>
     <tree-root #tree [nodes]="fileTree" (activate)="onEvent($event)" [options]="options"></tree-root>
   </div>

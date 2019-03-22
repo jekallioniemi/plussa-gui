@@ -23,6 +23,11 @@ export class GitlabRestService {
 
   }
 
+  getProject(token, projectId){
+    const headers = new HttpHeaders().set("PRIVATE-TOKEN", token);
+    return this.http.get(this.projectsApiUrl + projectId, {headers});
+  }
+
   // Function to http.get repository filetree, ?per_page necessary when there is more than 20 files to show
   getRepositoryTree(token, projectId, fileMetaJSON?) {
     const headers = new HttpHeaders().set("PRIVATE-TOKEN", token);
