@@ -6,7 +6,7 @@
     <button type="button" class="btn btn-primary" (click)="downloadCourse()">Download</button>
     <p style="margin-top:15px;">Repository: <br>{{project?.name}}</p>
     <h4 style="margin-top:15px;">Course files</h4>
-    <tree-root #tree [nodes]="fileTree" (activate)="onEvent($event)" [options]="options"></tree-root>
+    <tree-root #tree [nodes]="fileTree" (toggleExpanded)="onTreeExpand($event)" (activate)="onTreeClick($event)" [options]="options"></tree-root>
   </div>
   <div class="col-5">
     <app-editor></app-editor>
