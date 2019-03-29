@@ -11,11 +11,11 @@ export class GitlabRestService {
   private httpHeaders: HttpHeaders;
   // URLs for GitLab API
   // course-gitlab.tut.fi projectsApiUrl: https://course-gitlab.tut.fi/api/v4/projects/
-  private projectsApiUrl = "https://gitlab.com/api/v4/projects/";
+  private projectsApiUrl = "https://course-gitlab.tut.fi/api/v4/projects/";
   private filesExtensionUrl = "/repository/files"
   private fileTreeExtensionUrl = "/repository/tree";
   private commitExtensionUrl = "/repository/commits";
-  
+
 
   constructor(private http: HttpClient) { }
 
@@ -39,7 +39,7 @@ export class GitlabRestService {
     }
   }
 
-  // change '/' to '%2F' for REST calls 
+  // change '/' to '%2F' for REST calls
   replaceSlash(s:string) {
     return s && s.replace(/\//g,'%2F');
   }
@@ -62,7 +62,7 @@ export class GitlabRestService {
   private generateCommitPayload(projectId, fileMetaJSON, newContent) {
     const payload = {
       id: projectId,
-      branch: "master",
+      branch: "testi",
       commit_message: "testCommit - timestamp: "+Date(),
       actions: [
         {
