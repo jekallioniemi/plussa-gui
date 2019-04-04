@@ -1,20 +1,19 @@
 <div  class="row">
-  <div class="col-2">
-  <h3>User credentials</h3>
+  <div class="row-1 col-12" id="download"><h3>User credentials</h3>
     Token: <input class="credentials" type="text" [(ngModel)]="credentials.accessToken" placeholder="Access Token" />
     Project Id: <input class="credentials" type="text" [(ngModel)]="credentials.projectId" placeholder="Project Id" />
     <button type="button" class="btn btn-primary" (click)="downloadCourse()">Download</button>
+  </div>
+</div>
+  <div class="row">
+  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6" id="filetree">
     <p style="margin-top:15px;">Repository: <br>{{project?.name}}</p>
     <h4 style="margin-top:15px;">Course files</h4>
     <tree-root #tree [nodes]="fileTree" (toggleExpanded)="onTreeExpand($event)" (activate)="onTreeClick($event)" [options]="options"></tree-root>
   </div>
-  <div class="col-5">
+  <div class="col-lg-10 col-md-10 col-sm-10 col-xs-6" id="editorwindow">
+    <button type="button" class="btn btn-primary btn-right" (click)="saveEdits()">Save edits</button>
+    <button type="button" class="btn btn-primary btn-right" (click)="loadPreview()">Preview</button>
     <app-editor></app-editor>
-    <button type="button" class="btn btn-primary" (click)="saveEdits()">Save edits</button>
-  </div>
-  <div class="col-5">
-    <h3>Test preview</h3>
-    <textarea class="editor">...</textarea>
-    <button type="button" class="btn btn-primary">Empty</button>
   </div>
 </div>
