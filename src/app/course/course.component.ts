@@ -14,8 +14,8 @@ export class CourseComponent implements OnInit {
   @ViewChild('tree') tree: TreeComponent
 
   private credentials = {
-    accessToken: "",
-    projectId: ""
+    accessToken: "awXcd4ByQBuYVt6DDjCi",
+    projectId: "11677383"
   }
   private editedFileJSON: {};
   private courseName = "Course files";

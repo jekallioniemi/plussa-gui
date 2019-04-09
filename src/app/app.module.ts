@@ -10,12 +10,14 @@ import { AppComponent } from './app.component';
 import { GitlabRestService } from './gitlab-rest/gitlab-rest.service';
 import { EditorComponent } from './editor/editor.component';
 import { CourseComponent } from './course/course.component';
+import { AlertsComponent } from './alerts/alerts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
-    CourseComponent
+    CourseComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,
